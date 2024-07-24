@@ -40,23 +40,30 @@ fn main() -> Result<()> {
     println! {"Output directory: {:?}", out_dir};
     fs::create_dir_all(&out_dir)?;
 
+    let copied_wasm_path = out_dir.join("orig.wasm");
+    fs::copy(&path, &copied_wasm_path)
+        .map_err(|e| Error::msg(format!("Failed to copy file: {}", e)))?;
+    println!("File copied to {:?}", copied_wasm_path);
+
     let orig_wat_path = out_dir.join("orig.wat");
     let args = [
-        "--all-features",
+        "print",
         "-o",
         orig_wat_path
             .to_str()
             .ok_or_else(|| Error::msg("Invalid output path"))?,
         path,
     ];
-    let output = Command::new("wasm-dis")
+    let output = Command::new("wasm-tools")
         .args(&args)
         .current_dir(parent_dir)
         .output()?;
-
     if !output.status.success() {
         let error_message = String::from_utf8_lossy(&output.stderr);
-        return Err(Error::msg(format!("wasm-dis failed: {}", error_message)));
+        return Err(Error::msg(format!(
+            "wasm-tools print failed: {}",
+            error_message
+        )));
     }
 
     let func_name = wasmgen::generate(&out_dir, orig_wat_path, int_list, parent_dir)?;
