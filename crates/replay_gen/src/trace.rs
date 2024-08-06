@@ -711,7 +711,7 @@ impl FromStr for WasmEvent {
             }),
             "MG" => Ok(WasmEvent::MemGrow {
                 idx: components[1].parse().unwrap(),
-                amount: components[3].parse().unwrap(),
+                amount: components[2].parse().unwrap(),
             }),
             "T" => Ok(WasmEvent::TableGet {
                 tableidx: components[1].parse().unwrap(),

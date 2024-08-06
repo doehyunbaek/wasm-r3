@@ -527,7 +527,7 @@ export default class Analysis implements AnalysisI<Trace> {
                 let amount = mem.buffer.byteLength / this.MEM_PAGE_SIZE - this.shadowMemories[idx].byteLength / this.MEM_PAGE_SIZE
                 memGrow[idx] = amount
                 this.growShadowMem(idx, amount)
-                this.trace.push(`MG;${idx};${this.getName(this.Wasabi.module.info.memories[idx])};${amount}`)
+                this.trace.push(`MG;${idx};${amount}`)
             }
         })
     }
