@@ -386,7 +386,7 @@ export default class Analysis implements AnalysisI<Trace> {
                         new Uint8Array(this.shadowMemories[0])[addr + i] = new Uint8Array(this.Wasabi.module.memories[0].buffer)[addr + i]
                         new Uint8Array(this.Wasabi.module.memories[0].buffer)[addr + i] = r as number
                         this.stats.relevantLoads++;
-                        this.trace.push(`L;${0};${memName};${addr + i};${[r as number]}`)
+                        this.trace.push(`L;${0};${addr + i};${[r as number]}`)
                     }
                 }
             },

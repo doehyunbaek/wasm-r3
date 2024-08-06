@@ -706,8 +706,8 @@ impl FromStr for WasmEvent {
             }),
             "L" => Ok(WasmEvent::Load {
                 idx: components[1].parse().unwrap(),
-                offset: components[3].parse().unwrap(),
-                data: LoadValue::I8(components[4].parse().unwrap()),
+                offset: components[2].parse().unwrap(),
+                data: LoadValue::I8(components[3].parse().unwrap()),
             }),
             "MG" => Ok(WasmEvent::MemGrow {
                 idx: components[1].parse().unwrap(),
